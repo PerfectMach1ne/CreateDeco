@@ -12,19 +12,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class LoaderUtilImpl {
-  public static int getSignal (IBE<?> be, BlockState pState, Level pLevel, BlockPos pPos) {
-    return be.getBlockEntityOptional(pLevel, pPos)
-      .filter(vte->!Transaction.isOpen()) // fabric: hack fix for comparators updating when they shouldn't
-      .map(vte->{
-        if (vte instanceof SidedStorageBlockEntity sided) return sided.getItemStorage(null);
-        return null;
-      })
-      .map(ItemHelper::calcRedstoneFromInventory)
-      .orElse(0);
-  }
-
-  public static boolean checkPlacingNbt (BlockPlaceContext ctx) {
-    ItemStack item = ctx.getItemInHand();
-    return BlockItem.getBlockEntityData(item) != null;
-  }
+	public static int getSignal (IBE<?> be, BlockState pState, Level pLevel, BlockPos pPos) {
+		return be.getBlockEntityOptional(pLevel, pPos)
+		.filter(vte->!Transaction.isOpen()) // fabric: hack fix for comparators updating when they shouldn't
+		.map(vte->{
+			if (vte instanceof SidedStorageBlockEntity sided) return sided.getItemStorage(null);
+			return null;
+		})
+		.map(ItemHelper::calcRedstoneFromInventory)
+		.orElse(0);
+	}
+	
+	public static boolean checkPlacingNbt (BlockPlaceContext ctx) {
+		ItemStack item = ctx.getItemInHand();
+		return BlockItem.getBlockEntityData(item) != null;
+	}
 }

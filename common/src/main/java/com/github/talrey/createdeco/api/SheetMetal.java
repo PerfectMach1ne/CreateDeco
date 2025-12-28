@@ -20,86 +20,86 @@ import net.minecraft.world.level.block.SoundType;
 import java.util.Locale;
 
 public class SheetMetal {
-  public static BlockBuilder<ConnectedPillarBlock,?> buildBlock (
-      CreateRegistrate reg, String metal
-  ) {
-    String regName = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_sheet_metal";
-
-    return reg.block(regName, ConnectedPillarBlock::new)
+    public static BlockBuilder<ConnectedPillarBlock,?> buildBlock (
+        CreateRegistrate reg, String metal
+    ) {
+        String regName = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_sheet_metal";
+        
+        return reg.block(regName, ConnectedPillarBlock::new)
         .properties(props-> props.strength(5, 6)
-            .requiresCorrectToolForDrops()
-            .sound(SoundType.NETHERITE_BLOCK)
-        )
-        .item()
-        .build()
-        .tag(BlockTags.MINEABLE_WITH_PICKAXE)
-        .blockstate((ctx,prov)-> BlockStateGenerator.sheetMetal(metal, ctx, prov))
-        .lang(metal + " Sheet Metal")
+        .requiresCorrectToolForDrops()
+        .sound(SoundType.NETHERITE_BLOCK)
+    )
+    .item()
+    .build()
+    .tag(BlockTags.MINEABLE_WITH_PICKAXE)
+    .blockstate((ctx,prov)-> BlockStateGenerator.sheetMetal(metal, ctx, prov))
+    .lang(metal + " Sheet Metal")
+    
+    .onRegister(CreateRegistrate.connectedTextures(() ->
+    new RotatedPillarCTBehaviour(SpriteShifts.SHEET_METAL_SIDES.get(metal), null)
+));
+}
 
-        .onRegister(CreateRegistrate.connectedTextures(() ->
-            new RotatedPillarCTBehaviour(SpriteShifts.SHEET_METAL_SIDES.get(metal), null)
-        ));
-  }
-
-  public static <T extends Block> void recipeCrafting (
-      String metal, DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
-  ) {
+public static <T extends Block> void recipeCrafting (
+    String metal, DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
+) {
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get(), 4)
-        .pattern("mm")
-        .pattern("mm")
-        .define('m', CreateDecoTags.plate(metal))
-        .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-            ItemPredicate.Builder.item().of(CreateDecoTags.plate(metal)).build()
-        ))
-        .save(prov);
-  }
+    .pattern("mm")
+    .pattern("mm")
+    .define('m', CreateDecoTags.plate(metal))
+    .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
+        ItemPredicate.Builder.item().of(CreateDecoTags.plate(metal)).build()
+    ))
+    .save(prov);
+}
 
 /*
-  public static ArrayList<BlockBuilder<StairBlock,?>> buildStair (CreateRegistrate reg, String color) {
-    String name;
-    ArrayList<BlockBuilder<StairBlock, ?>> ret = new ArrayList<>();
+public static ArrayList<BlockBuilder<StairBlock,?>> buildStair (CreateRegistrate reg, String color) {
+String name;
+ArrayList<BlockBuilder<StairBlock, ?>> ret = new ArrayList<>();
 
-    for (String prefix : TYPES) {
-      if (color.isEmpty() && prefix.isEmpty()) continue;
-      name = (prefix.isEmpty() ? "" : prefix + "_") + color + "_brick_stairs";
+for (String prefix : TYPES) {
+if (color.isEmpty() && prefix.isEmpty()) continue;
+name = (prefix.isEmpty() ? "" : prefix + "_") + color + "_brick_stairs";
 
-      if (color.contains("red") && prefix.isEmpty()) continue;
+if (color.contains("red") && prefix.isEmpty()) continue;
 
-      String finalName = name; // "effectively final" for lambda purposes
-      ret.add(reg.block(name, p -> new StairBlock(Blocks.BRICK_STAIRS.defaultBlockState(), p))
-          .initialProperties(() -> Blocks.BRICKS)
-          .properties(props -> props
-              .strength(2, 6)
-              .requiresCorrectToolForDrops()
-              .sound(SoundType.STONE)
-          )
-          .blockstate((ctx, prov) -> BlockStateGenerator.brickStair(ctx, prov, color))
-          .tag(BlockTags.MINEABLE_WITH_PICKAXE)
-          .lang(
-              CAPITALS.get(TYPES.indexOf(prefix))
-                  + color.substring(0, 1).toUpperCase()
-                  + color.substring(1)
-                  + " " + "Brick Stairs"
-          )
-          .defaultLoot()
-          .recipe((ctx, prov) -> {
-            prov.stairs(
-                DataIngredient.items(
-                    (ItemLike) BlockRegistry.BRICKS.get(BlockRegistry.fromName(color)).get(
-                        (prefix.isEmpty() ? "" : prefix + "_") + color + "_bricks"
-                    )),
-                RecipeCategory.BUILDING_BLOCKS,
-                ctx,
-                CreateDecoMod.MOD_ID,
-                true
-            );
-            recipeStonecuttingStair(finalName, color, prefix, ctx, prov);
-          })
-          .simpleItem()
-      );
-    }
-    return ret;
-  }
+String finalName = name; // "effectively final" for lambda purposes
+ret.add(reg.block(name, p -> new StairBlock(Blocks.BRICK_STAIRS.defaultBlockState(), p))
+.initialProperties(() -> Blocks.BRICKS)
+.properties(props -> props
+.strength(2, 6)
+.requiresCorrectToolForDrops()
+.sound(SoundType.STONE)
+)
+.blockstate((ctx, prov) -> BlockStateGenerator.brickStair(ctx, prov, color))
+.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+.lang(
+CAPITALS.get(TYPES.indexOf(prefix))
++ color.substring(0, 1).toUpperCase()
++ color.substring(1)
++ " " + "Brick Stairs"
+)
+.defaultLoot()
+.recipe((ctx, prov) -> {
+prov.stairs(
+DataIngredient.items(
+(ItemLike) BlockRegistry.BRICKS.get(BlockRegistry.fromName(color)).get(
+(prefix.isEmpty() ? "" : prefix + "_") + color + "_bricks"
+)),
+RecipeCategory.BUILDING_BLOCKS,
+ctx,
+CreateDecoMod.MOD_ID,
+true
+);
+recipeStonecuttingStair(finalName, color, prefix, ctx, prov);
+})
+.simpleItem()
+);
+}
+return ret;
+}
 
- */
+*/
 }

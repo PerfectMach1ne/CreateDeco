@@ -20,35 +20,35 @@ import net.minecraft.world.level.block.SoundType;
 import java.util.Locale;
 
 public class MeshFences {
-  public static <T extends Block> void fenceRecipe (
-      String metal,
-      DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
-  ) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get(), 16)
-        .pattern("psp")
-        .pattern("psp")
-        .define('p', CreateDecoTags.plate(metal))
-        .define('s', Items.STRING)
-        .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-            ItemPredicate.Builder.item().of(CreateDecoTags.plate(metal)).build()
-        ))
-        .save(prov);
-  }
-
-  public static BlockBuilder<MeshFenceBlock,?> build (CreateRegistrate reg, String metal) {
-    return reg.block(metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_mesh_fence", MeshFenceBlock::new)
-      .properties(props-> props.strength(5, 6).requiresCorrectToolForDrops()
-        .sound(SoundType.CHAIN)
-      )
-      .addLayer(()-> RenderType::translucent)
-      .tag(BlockTags.FENCES)
-      .tag(BlockTags.MINEABLE_WITH_PICKAXE)
-      .item().tag(ItemTags.FENCES)
-      .properties(p -> (metal.equals("Netherite")) ? p.fireResistant() : p)
-      .model((ctx,prov)-> prov.singleTexture(
-        ctx.getName(), prov.mcLoc("item/generated"),
-        "layer0", prov.modLoc("block/palettes/chain_link_fence/" + metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_chain_link")))
-      .build()
-      .blockstate((ctx,prov)-> BlockStateGenerator.fence(metal, ctx, prov));
-  }
+	public static <T extends Block> void fenceRecipe (
+		String metal,
+		DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
+	) {
+		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get(), 16)
+		.pattern("psp")
+		.pattern("psp")
+		.define('p', CreateDecoTags.plate(metal))
+		.define('s', Items.STRING)
+		.unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
+			ItemPredicate.Builder.item().of(CreateDecoTags.plate(metal)).build()
+		))
+		.save(prov);
+	}
+	
+	public static BlockBuilder<MeshFenceBlock,?> build (CreateRegistrate reg, String metal) {
+		return reg.block(metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_mesh_fence", MeshFenceBlock::new)
+		.properties(props-> props.strength(5, 6).requiresCorrectToolForDrops()
+		.sound(SoundType.CHAIN)
+	)
+	.addLayer(()-> RenderType::translucent)
+	.tag(BlockTags.FENCES)
+	.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+	.item().tag(ItemTags.FENCES)
+	.properties(p -> (metal.equals("Netherite")) ? p.fireResistant() : p)
+	.model((ctx,prov)-> prov.singleTexture(
+		ctx.getName(), prov.mcLoc("item/generated"),
+		"layer0", prov.modLoc("block/palettes/chain_link_fence/" + metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_chain_link")))
+		.build()
+		.blockstate((ctx,prov)-> BlockStateGenerator.fence(metal, ctx, prov));
+	}
 }
