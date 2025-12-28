@@ -19,3 +19,4 @@ classes/
 .settings
 *.launch
 /common/src/generated/resources/.cache
+create-decompiled/
