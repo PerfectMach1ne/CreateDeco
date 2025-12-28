@@ -9,37 +9,37 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class CreateDecoModData implements DataGeneratorEntrypoint {
-	//private static final List<ProcessingRecipeWrapper> GENERATORS = new ArrayList<>();
-	
-	@Override
-	public void onInitializeDataGenerator (FabricDataGenerator gen) {
-		Path existing = Paths.get(System.getProperty(ExistingFileHelper.EXISTING_RESOURCES));
-		//ExistingFileHelper helper = new ExistingFileHelper(
-		//  Set.of(existing), Set.of(""), false, null, null
-		//);
-		
-		ExistingFileHelper helper = ExistingFileHelper.withResourcesFromArg();
-		FabricDataGenerator.Pack pack = gen.createPack();
-		CreateDecoMod.REGISTRATE.setupDatagen(pack, helper);
-		//pack.addProvider(CreateDecoModData::registerAll);
-	}
-	
-	//  public static DataProvider registerAll (FabricDataOutput output) {
-	//    GENERATORS.add(new SplashingRecipes(output));
-	//    GENERATORS.add(new PressingRecipes(output));
-	//    GENERATORS.add(new PolishingRecipes(output));
-	//    GENERATORS.add(new CompactingRecipes(output));
-	//
-	//    return new DataProvider() {
-	//      @Override
-	//      public String getName() { return "Deco's Processing Recipes"; }
-	//      @Override
-	//      public CompletableFuture<?> run (CachedOutput co) {
-	//        return CompletableFuture.allOf(GENERATORS.stream()
-	//          .map(gen -> gen.run(co))
-	//          .toArray(CompletableFuture[]::new)
-	//        );
-	//      }
-	//    };
-	//  }
+  //private static final List<ProcessingRecipeWrapper> GENERATORS = new ArrayList<>();
+
+  @Override
+  public void onInitializeDataGenerator (FabricDataGenerator gen) {
+    Path existing = Paths.get(System.getProperty(ExistingFileHelper.EXISTING_RESOURCES));
+    //ExistingFileHelper helper = new ExistingFileHelper(
+    //  Set.of(existing), Set.of(""), false, null, null
+    //);
+
+    ExistingFileHelper helper = ExistingFileHelper.withResourcesFromArg();
+    FabricDataGenerator.Pack pack = gen.createPack();
+    CreateDecoMod.REGISTRATE.setupDatagen(pack, helper);
+    //pack.addProvider(CreateDecoModData::registerAll);
+  }
+
+//  public static DataProvider registerAll (FabricDataOutput output) {
+//    GENERATORS.add(new SplashingRecipes(output));
+//    GENERATORS.add(new PressingRecipes(output));
+//    GENERATORS.add(new PolishingRecipes(output));
+//    GENERATORS.add(new CompactingRecipes(output));
+//
+//    return new DataProvider() {
+//      @Override
+//      public String getName() { return "Deco's Processing Recipes"; }
+//      @Override
+//      public CompletableFuture<?> run (CachedOutput co) {
+//        return CompletableFuture.allOf(GENERATORS.stream()
+//          .map(gen -> gen.run(co))
+//          .toArray(CompletableFuture[]::new)
+//        );
+//      }
+//    };
+//  }
 }

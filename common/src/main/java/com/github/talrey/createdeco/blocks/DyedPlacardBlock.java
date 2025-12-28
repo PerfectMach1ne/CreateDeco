@@ -8,19 +8,19 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class DyedPlacardBlock extends PlacardBlock {
-	public DyedPlacardBlock (Properties props) {
-		super(props);
-	}
-	
-	@Override
-	public BlockEntityType<? extends PlacardBlockEntity> getBlockEntityType() {
-		return BlockRegistry.PLACARD_ENTITIES.get();
-	}
-	
-	// the BlockEntity for the Dyed Placard
-	public static class Entity extends PlacardBlockEntity {
-		public Entity (BlockEntityType<?> type, BlockPos pos, BlockState state) {
-			super(type, pos, state);
-		}
-	}
+  public DyedPlacardBlock (Properties props) {
+    super(props);
+  }
+
+  @Override
+  public BlockEntityType<? extends PlacardBlockEntity> getBlockEntityType() {
+    return BlockRegistry.PLACARD_ENTITIES.get();
+  }
+
+  // the BlockEntity for the Dyed Placard
+  public static class Entity extends PlacardBlockEntity {
+    public Entity (BlockEntityType<?> type, BlockPos pos, BlockState state) {
+      super(type, pos, state);
+    }
+  }
 }

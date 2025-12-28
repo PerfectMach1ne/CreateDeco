@@ -15,43 +15,43 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class HullBlock extends DirectionalBlock {
-	private static final VoxelShape OUTER = Block.box(
-		0d, 0d, 0d,
-		16d, 16d, 16d
-	);
-	private static final VoxelShape INNER = Block.box(
-		2d, 2d, 2d,
-		14d, 14d, 14d
-	);
-	private static final VoxelShape CUBE =
-	Shapes.join(OUTER, INNER, BooleanOp.ONLY_FIRST
-	);
-	
-	public HullBlock (Properties props) {
-		super(props);
-	}
-	
-	@Override
-	protected void createBlockStateDefinition (StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(FACING);
-	}
-	
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement (BlockPlaceContext ctx) {
-		BlockState result = super.getStateForPlacement(ctx).setValue(FACING,
-			ctx.getClickedFace().getOpposite()
-		);
-		return result;
-	}
-	
-	@Override
-	public VoxelShape getShape (BlockState state, BlockGetter reader, BlockPos pos, CollisionContext ctx) {
-		return CUBE;
-	}
-	
-	@Override
-	public BlockState rotate(BlockState state, Rotation rotation) {
-		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
-	}
+  private static final VoxelShape OUTER = Block.box(
+    0d, 0d, 0d,
+    16d, 16d, 16d
+  );
+  private static final VoxelShape INNER = Block.box(
+    2d, 2d, 2d,
+    14d, 14d, 14d
+  );
+  private static final VoxelShape CUBE =
+    Shapes.join(OUTER, INNER, BooleanOp.ONLY_FIRST
+    );
+
+  public HullBlock (Properties props) {
+    super(props);
+  }
+
+  @Override
+  protected void createBlockStateDefinition (StateDefinition.Builder<Block, BlockState> builder) {
+    builder.add(FACING);
+  }
+
+  @Nullable
+  @Override
+  public BlockState getStateForPlacement (BlockPlaceContext ctx) {
+    BlockState result = super.getStateForPlacement(ctx).setValue(FACING,
+      ctx.getClickedFace().getOpposite()
+    );
+    return result;
+  }
+
+  @Override
+  public VoxelShape getShape (BlockState state, BlockGetter reader, BlockPos pos, CollisionContext ctx) {
+    return CUBE;
+  }
+
+  @Override
+  public BlockState rotate(BlockState state, Rotation rotation) {
+    return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+  }
 }
